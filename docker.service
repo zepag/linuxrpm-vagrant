@@ -5,7 +5,9 @@ After=network.target docker.socket
 Requires=docker.socket
 
 [Service]
-ExecStart=/usr/local/bin/docker -d -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375
+# ExecStart=/usr/local/bin/docker -d -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375
+# Restrict lab to socket
+ExecStart=/usr/local/bin/docker -d -H unix://var/run/docker.sock
 LimitNOFILE=1048576
 LimitNPROC=1048576
 
