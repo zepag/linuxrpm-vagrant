@@ -10,8 +10,8 @@ tar xzf /tmp/docker-latest.tgz -C /
 
 echo "Install docker as a service"
 SERVICE_DIR="/etc/systemd/system"
-cp /vagrant/docker.service $SERVICE_DIR
-cp /vagrant/docker.socket $SERVICE_DIR
+mv /tmp/docker.service $SERVICE_DIR
+mv /tmp/docker.socket $SERVICE_DIR
 systemctl enable docker.service
 systemctl start docker.service
 
@@ -40,8 +40,8 @@ curl -s -L https://raw.githubusercontent.com/docker/compose/1.1.0/contrib/comple
 # Install docker bash completion
 curl -s -L https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker > /etc/bash_completion.d/docker
 
-# Install bash completion and git
+# Install bash completion, vim and git
 echo "Install git and bash-completion"
-yum -y -q install git bash-completion
+yum -y -q --nogpgcheck install git bash-completion vim
 
 echo "All done ;)"
