@@ -1,90 +1,37 @@
-## Centos 7 based Vagrant VM for docker
+## Centos 7 based Vagrant VM for building RPMs
 
-Quick Vagrant setup to get the latest docker installed.
+This Vagrant setup provisions the following (over a base image: chef/centos7):
+* Installs the latest docker 
+* Installs the latest docker-compose
+* Installs other utilities: git,vim
 
 All vagrant commands described here must be run in the folder where the VagrantFile is. Otherwise, check Vagrant's dock in order to understand its loading order.
 
-### Things you might want to change/modify !
-
-#### Users folder mapping
-
-Default path is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker. (Under Windows 7, this would map C:\Users to /Users)
+### First run
 
 ```
-config.vm.synced_folder "/Users", "/Users"
+vagrant up --provider virtualbox
 ```
 
-If you're working on linux or windows, adapt it to suit your setup.
-If you just don't need to map any local folders in your VM, just comment it. 
+This Vagrant file is based on chef/centos7 base box, which is not available for e.g. libvirt.
+If you''re using Linux for example, linux is likely to be your default provider.
+Hence the need to specify the provider.
+In MacOSX, virtualbox is the default, and therefore "vagrant up" might be sufficient.
 
-#### Basic VM configurations
-
-Self explanatory.
-
-```
-config.vm.network "private_network", ip: "192.168.60.100"
-vb.cpus = 4
-vb.memory = 4096
-config.vm.hostname = "dockerbox"
-```
-
-### Launch a new VM
-
-Choose a provisioning method for the first `vagrant up`.
-If you don't specify a provisioning method, both will run, which is just a waste of your time. Alternatively, you can edit the Vagrant file and comment out the provisioning method you don't wish to use.
-
-#### Shell script
+### Connect to VM
 
 ```
-vagrant up --provision --provision-with shell
+vagrant ssh
 ```
 
-#### Ansible
+### Halt VM
 
 ```
-vagrant up --provision --provision-with ansible
+vagrant halt
 ```
 
-### Usage
-
-You can now access docker as vagrant user within the VM or over the network on port 2375.
-
-- SSH into the VM and start using docker 
-
-  ```
-  vagrant ssh
-  ```
-
-  and start using docker.
-- Or if you want to use your host's docker client, get the VM's IP address. You can now log out of the VM.
-    - Open a new shell on your Host
-    - Set the DOCKER_HOST environment variable
-
-    ```
-    export DOCKER_HOST="tcp://<the VM's IP address>:2375"
-    ```
-
-- Test docker connection
+### Cleanup
 
 ```
-$ docker info
-Containers: 0
-Images: 0
-Storage Driver: devicemapper
- Pool Name: docker-253:1-135257989-pool
- Pool Blocksize: 65.54 kB
- Data file: /var/lib/docker/devicemapper/devicemapper/data
- Metadata file: /var/lib/docker/devicemapper/devicemapper/metadata
- Data Space Used: 307.2 MB
- Data Space Total: 107.4 GB
- Metadata Space Used: 733.2 kB
- Metadata Space Total: 2.147 GB
- Library Version: 1.02.82-git (2013-10-04)
-Execution Driver: native-0.2
-Kernel Version: 3.10.0-123.el7.x86_64
-Operating System: CentOS Linux 7 (Core)
-CPUs: 4
-Total Memory: 3.704 GiB
-Name: dockerbox
-ID: AZ6C:XSUS:W2DV:ZPJ5:XQGZ:2CPG:MV5J:6BLF:WYZO:TBXH:6VCV:HBIF
+vagrant destroy
 ```
