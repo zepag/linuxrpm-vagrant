@@ -70,6 +70,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "file", source: "./docker.service", destination: "/tmp/docker.service"
   config.vm.provision "file", source: "./docker.socket", destination: "/tmp/docker.socket"
+  config.vm.provision "file", source: "./devoxxlabgpgkey_pub.gpg", destination: "/home/vagrant/devoxxlabgpgkey_pub.gpg"
+  config.vm.provision "file", source: "./devoxxlabgpgkey_sec.gpg", destination: "/home/vagrant/devoxxlabgpgkey_sec.gpg"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the

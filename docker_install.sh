@@ -41,7 +41,7 @@ curl -s -L https://raw.githubusercontent.com/docker/compose/1.1.0/contrib/comple
 curl -s -L https://raw.githubusercontent.com/docker/docker/master/contrib/completion/bash/docker > /etc/bash_completion.d/docker
 
 # Install bash completion, vim and git
-echo "Install git and bash-completion"
-yum -y -q --nogpgcheck install git bash-completion vim
+echo "Install git, bash-completion, vim and createrepo"
+yum -y -q --nogpgcheck install git bash-completion vim createrepo
 
 echo "All done ;)"
