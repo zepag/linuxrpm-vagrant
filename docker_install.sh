@@ -44,4 +44,10 @@ curl -s -L https://raw.githubusercontent.com/docker/docker/master/contrib/comple
 echo "Install git, bash-completion, vim and createrepo"
 yum -y -q --nogpgcheck install git bash-completion vim createrepo
 
+echo "Clone git repositories"
+pushd /home/vagrant
+su - vagrant -c "git clone https://github.com/zepag/linuxrpm-docker/"
+su - vagrant -c "git clone https://github.com/zepag/linuxrpm-examples/"
+popd
+
 echo "All done ;)"
